@@ -1,0 +1,66 @@
+﻿@model IEnumerable<Standard>
+
+@{
+    ViewData["Title"] = "Standards List";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<form method="get" class="row g-2 mb-4">
+    <div class="col-md-4">
+        <!--how to add search from url to input -->
+        <input type="text" class="form-control" name="text" placeholder="Text" value="@Context.Request.Query["text"]" />
+    </div>
+
+
+    <div class="col-md-2">
+        <button type="submit" class="btn btn-primary w-100">Search</button>
+    </div>
+</form>
+
+<table class="table table-sm table-bordered table-striped table-hover">
+    <thead class="table-dark">
+        <tr>
+            <th>Id</th>
+            <th>Standard Name</th>
+            <th>Description</th>
+            <th>Created At</th>
+            <th style="max-width: 180px;" class="text-center">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if(!Model.Any())
+        {
+            <tr>
+                <td colspan="5" class="text-center">No standards found.</td>
+            </tr>
+        }
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.StandardName</td>
+                <td>@item.Description</td>
+                <td>@item.CreatedAt.ToString("yyyy/MM/dd HH:mm")</td>
+                <td class="text-center">
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-primary me-1">Edit</a>
+                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-info me-1">Details</a>
+                    <button type="button" class="btn btn-sm btn-danger"
+                            data-bs-toggle="modal"
+                            data-bs-target="#deleteModal"
+                            data-name="@item.StandardName"
+                            data-url="/Standards/Delete/@item.Id">
+                        Delete
+                    </button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a asp-action="Create" class="btn btn-success mb-3">+ Add New Standard</a>
+
+@await Html.PartialAsync("_ToastMessagesPartial")
+@await Html.PartialAsync("_DeleteConfirmationModalPartial")
+

@@ -1,0 +1,45 @@
+﻿@model Student
+
+@{
+    ViewData["Title"] = "Student Details";
+}
+
+<h2 class="mb-4">@ViewData["Title"]</h2>
+
+<div class="card shadow-sm p-3 mb-4">
+    <div class="row mb-2">
+        <div class="col-md-3 fw-bold">First Name:</div>
+        <div class="col-md-9">@Model.FirstName</div>
+    </div>
+    <div class="row mb-2">
+        <div class="col-md-3 fw-bold">Last Name:</div>
+        <div class="col-md-9">@Model.LastName</div>
+    </div>
+    <div class="row mb-2">
+        <div class="col-md-3 fw-bold">Height:</div>
+        <div class="col-md-9">@Model.Height.ToString("0.00")</div>
+    </div>
+    <div class="row mb-2">
+        <div class="col-md-3 fw-bold">Weight:</div>
+        <div class="col-md-9">@Model.Weight</div>
+    </div>
+    <div class="row mb-2">
+        <div class="col-md-3 fw-bold">Date of Birth:</div>
+        <div class="col-md-9">@Model.DateOfBirth?.ToString("yyyy-MM-dd")</div>
+    </div>
+    <div class="row mb-2">
+        <div class="col-md-3 fw-bold">Standerd Id:</div>
+        <div class="col-md-9">@Model.StandardId</div>
+    </div>
+    <div class="row mb-2">
+        <div class="col-md-3 fw-bold">Created At:</div>
+        <div class="col-md-9">@Model.CreatedAt.ToString("yyyy-MM-dd HH:mm")</div>
+    </div>
+    <div class="row mb-2">
+        <div class="col-md-3 fw-bold">Updated At:</div>
+        <div class="col-md-9">@Model.UpdatedAt.ToString("yyyy-MM-dd HH:mm")</div>
+    </div>
+</div>
+
+<a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary me-2">Edit</a>
+<a asp-action="Index" class="btn btn-secondary">Back to List</a>
